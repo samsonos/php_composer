@@ -63,4 +63,13 @@ class MainTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($composerModules, $modulesExample);
     }
+
+    public function testEmpty()
+    {
+        $composer = new \samson\composer\Composer('test/', 'composer.test');
+        $composer->addVendor('samsonostest');
+        $composerModules = $composer->create();
+        $modulesExample = array();
+        $this->assertEquals($composerModules, $modulesExample);
+    }
 }
