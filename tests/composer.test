@@ -272,6 +272,9 @@
             ],
             "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
             "homepage": "http://phpexcel.codeplex.com",
+            "extra": {
+                            "samson_module_include": "1"
+                        },
             "keywords": [
                 "OpenXML",
                 "excel",

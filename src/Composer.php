@@ -141,12 +141,9 @@ class Composer
                 $this->ratingCount($package, $addedPackages, $requireList, 1);
             }
 
-
-            if (sizeof($addedPackages)) {
-                // Sort packages rated
-                if (arsort($addedPackages)) {
-                    return $addedPackages;
-                }
+            // Sort packages rated
+            if (sizeof($addedPackages) && arsort($addedPackages)) {
+                return $addedPackages;
             }
         }
         return array();
