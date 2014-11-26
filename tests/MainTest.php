@@ -7,21 +7,13 @@ namespace tests;
  */
 class MainTest extends \PHPUnit_Framework_TestCase
 {
-    /** Tests init */
-    public function setUp()
+    public function testCreate()
     {
-        // Get instance using services factory as error will signal other way
-
-
-    }
-
-    public function testComposerCreate()
-    {
-        //$this->core->system_path = 'tests/';
-        //$this->core->composerLockFile = 'composer.test';
+        $composer = new \samson\composer\Composer('test/', 'composer.test');
+        $composer->addVendor('samsonos')->setIgnoreKey('samson_module_ignore')->addIgnorePackage('samsonos/php_core');
+        $composerModules = $composer->create();
         $modulesExample = array
         (
-            'samsonos/php_core' => 945,
             'samsonos/php_fs' => 112,
             'samsonos/php_fs_local' => 79,
             'samsonos/php_activerecord' => 35,
@@ -69,13 +61,6 @@ class MainTest extends \PHPUnit_Framework_TestCase
             'samsonos/cms_app_signin' => 1,
             'samsonos/cms_table' => 1
         );
-        //$modulesExample = array();
-        //$modules = $this->core->composerGetModules();
-        //$this->assertEquals($modules, $modulesExample);
-        //$this->core->composerLockFile = 'composer1.test';
-        //$modules = $this->core->composerGetModules();
-        $modules = array();
-        $modulesExample = array();
-        $this->assertEquals($modules, $modulesExample);
+        $this->assertEquals($composerModules, $modulesExample);
     }
 }

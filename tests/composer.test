@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "26df03201f01d81dc6e7f903285b3f4bdaaca7d4"
+                "reference": "272353015da2608f29c27b13ceade083a5b42d0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/26df03201f01d81dc6e7f903285b3f4bdaaca7d4",
-                "reference": "26df03201f01d81dc6e7f903285b3f4bdaaca7d4",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/272353015da2608f29c27b13ceade083a5b42d0a",
+                "reference": "272353015da2608f29c27b13ceade083a5b42d0a",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2014-11-20 22:53:37"
+            "time": "2014-11-26 01:13:25"
         },
         {
             "name": "guzzle/guzzle",
@@ -665,12 +665,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/samsonos/cms_api.git",
-                "reference": "d8c75d3c59932add69394ac7f0f4971bd0fb546f"
+                "reference": "7bf4c323ac98724b7da187b7e0a13defaddaebf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samsonos/cms_api/zipball/d8c75d3c59932add69394ac7f0f4971bd0fb546f",
-                "reference": "d8c75d3c59932add69394ac7f0f4971bd0fb546f",
+                "url": "https://api.github.com/repos/samsonos/cms_api/zipball/7bf4c323ac98724b7da187b7e0a13defaddaebf0",
+                "reference": "7bf4c323ac98724b7da187b7e0a13defaddaebf0",
                 "shasum": ""
             },
             "require": {
@@ -699,7 +699,7 @@
             ],
             "description": "SamsonCMS API module",
             "homepage": "http://samsonos.com/",
-            "time": "2014-11-23 15:48:22"
+            "time": "2014-11-26 15:02:54"
         },
         {
             "name": "samsonos/cms_app",
@@ -843,12 +843,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/samsonos/cms_app_gallery.git",
-                "reference": "8f3f93a7dc8408d5c137ae992459aeb53b7ffe30"
+                "reference": "3cf8948ee0e2e3438e35f7682b1d4568c153ea64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samsonos/cms_app_gallery/zipball/8f3f93a7dc8408d5c137ae992459aeb53b7ffe30",
-                "reference": "8f3f93a7dc8408d5c137ae992459aeb53b7ffe30",
+                "url": "https://api.github.com/repos/samsonos/cms_app_gallery/zipball/3cf8948ee0e2e3438e35f7682b1d4568c153ea64",
+                "reference": "3cf8948ee0e2e3438e35f7682b1d4568c153ea64",
                 "shasum": ""
             },
             "require": {
@@ -870,7 +870,7 @@
             ],
             "description": "SamsonCMS Material gallery application",
             "homepage": "http://samsonos.com/",
-            "time": "2014-11-24 16:50:47"
+            "time": "2014-11-26 15:13:14"
         },
         {
             "name": "samsonos/cms_app_help",
@@ -946,12 +946,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/samsonos/cms_app_navigation.git",
-                "reference": "9fe8ca3944f9fa22062e2f14bf15a6a4057f993a"
+                "reference": "4f5eb805458dfb25c2b46699b856e3c8a9a3235f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samsonos/cms_app_navigation/zipball/9fe8ca3944f9fa22062e2f14bf15a6a4057f993a",
-                "reference": "9fe8ca3944f9fa22062e2f14bf15a6a4057f993a",
+                "url": "https://api.github.com/repos/samsonos/cms_app_navigation/zipball/4f5eb805458dfb25c2b46699b856e3c8a9a3235f",
+                "reference": "4f5eb805458dfb25c2b46699b856e3c8a9a3235f",
                 "shasum": ""
             },
             "require": {
@@ -988,7 +988,7 @@
                 "navigation",
                 "samsoncms"
             ],
-            "time": "2014-11-14 16:51:04"
+            "time": "2014-11-26 15:02:07"
         },
         {
             "name": "samsonos/cms_app_product",
@@ -996,12 +996,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/samsonos/cms_app_product.git",
-                "reference": "90178dc8d4732d49f9e8b8d612bab5e1d05cd1cb"
+                "reference": "3e2411ceffb08c91821bee7727af1f6605aa5df9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samsonos/cms_app_product/zipball/90178dc8d4732d49f9e8b8d612bab5e1d05cd1cb",
-                "reference": "90178dc8d4732d49f9e8b8d612bab5e1d05cd1cb",
+                "url": "https://api.github.com/repos/samsonos/cms_app_product/zipball/3e2411ceffb08c91821bee7727af1f6605aa5df9",
+                "reference": "3e2411ceffb08c91821bee7727af1f6605aa5df9",
                 "shasum": ""
             },
             "require": {
@@ -1024,7 +1024,7 @@
             ],
             "description": "SamsonCMS Product application",
             "homepage": "http://samsonos.com/",
-            "time": "2014-11-24 16:39:59"
+            "time": "2014-11-26 09:54:51"
         },
         {
             "name": "samsonos/cms_app_relatedmaterial",
@@ -1242,12 +1242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/samsonos/cms_input_upload.git",
-                "reference": "fd36d2724b8baf0dbd3d1643117eefbff4d2e215"
+                "reference": "76336d960d1b2feedd0404ce9ec49e7515b69fb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samsonos/cms_input_upload/zipball/fd36d2724b8baf0dbd3d1643117eefbff4d2e215",
-                "reference": "fd36d2724b8baf0dbd3d1643117eefbff4d2e215",
+                "url": "https://api.github.com/repos/samsonos/cms_input_upload/zipball/76336d960d1b2feedd0404ce9ec49e7515b69fb6",
+                "reference": "76336d960d1b2feedd0404ce9ec49e7515b69fb6",
                 "shasum": ""
             },
             "require": {
@@ -1269,7 +1269,7 @@
             ],
             "description": "SamsonCMS generic upload input field module",
             "homepage": "http://samsonos.com/",
-            "time": "2014-11-17 16:32:14"
+            "time": "2014-11-25 13:24:28"
         },
         {
             "name": "samsonos/cms_input_wysiwyg",
@@ -1640,6 +1640,54 @@
             "time": "2014-11-21 11:51:12"
         },
         {
+            "name": "samsonos/php_composer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/samsonos/php_composer.git",
+                "reference": "1dae723f9d9f68e8a8b0ce465b9939a1446011a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/samsonos/php_composer/zipball/1dae723f9d9f68e8a8b0ce465b9939a1446011a5",
+                "reference": "1dae723f9d9f68e8a8b0ce465b9939a1446011a5",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*",
+                "satooshi/php-coveralls": "dev-master",
+                "squizlabs/php_codesniffer": "2.0.*@dev"
+            },
+            "type": "library",
+            "extra": {
+                "samson_module_ignore": "1"
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "psr-0": {
+                    "samsonos\\composer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Open Software License (OSL) v 3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Kotenko",
+                    "email": "kotenko@samsonos.com"
+                }
+            ],
+            "description": "Create packages list",
+            "homepage": "http://samsonos.com/",
+            "keywords": [
+                "composer"
+            ],
+            "time": "2014-11-26 14:59:12"
+        },
+        {
             "name": "samsonos/php_compressor",
             "version": "dev-master",
             "source": {
@@ -1684,15 +1732,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/samsonos/php_core.git",
-                "reference": "e0d8ca3c1a268ad20dde66604d5a9dfe9b41c4f0"
+                "reference": "02ece772a953cdb7f650839cc5ea31bc65fff422"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samsonos/php_core/zipball/e0d8ca3c1a268ad20dde66604d5a9dfe9b41c4f0",
-                "reference": "e0d8ca3c1a268ad20dde66604d5a9dfe9b41c4f0",
+                "url": "https://api.github.com/repos/samsonos/php_core/zipball/02ece772a953cdb7f650839cc5ea31bc65fff422",
+                "reference": "02ece772a953cdb7f650839cc5ea31bc65fff422",
                 "shasum": ""
             },
             "require": {
+                "samsonos/php_composer": "dev-master",
                 "samsonos/php_event": "dev-master"
             },
             "require-dev": {
@@ -1731,7 +1780,7 @@
                 "samsonos",
                 "samsonphp"
             ],
-            "time": "2014-11-24 17:31:10"
+            "time": "2014-11-26 16:32:00"
         },
         {
             "name": "samsonos/php_deploy",
@@ -2241,12 +2290,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/samsonos/php_treeview.git",
-                "reference": "d3a0267d4b2666164e82662574a18c72b984482a"
+                "reference": "777d8841173212838f6a4879aaebed8275e715c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samsonos/php_treeview/zipball/d3a0267d4b2666164e82662574a18c72b984482a",
-                "reference": "d3a0267d4b2666164e82662574a18c72b984482a",
+                "url": "https://api.github.com/repos/samsonos/php_treeview/zipball/777d8841173212838f6a4879aaebed8275e715c5",
+                "reference": "777d8841173212838f6a4879aaebed8275e715c5",
                 "shasum": ""
             },
             "require": {
@@ -2267,7 +2316,7 @@
             ],
             "description": "SamsonPHP TreeView module",
             "homepage": "http://samsonos.com/",
-            "time": "2014-11-17 12:26:00"
+            "time": "2014-11-26 15:00:10"
         },
         {
             "name": "samsonos/php_upload",
@@ -2586,12 +2635,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "547d3fb1778c6d5920614250c7c8bea8a21266d9"
+                "reference": "7cbe821f6825cd339c3e73c8e9c023c1181b6d74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/547d3fb1778c6d5920614250c7c8bea8a21266d9",
-                "reference": "547d3fb1778c6d5920614250c7c8bea8a21266d9",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/7cbe821f6825cd339c3e73c8e9c023c1181b6d74",
+                "reference": "7cbe821f6825cd339c3e73c8e9c023c1181b6d74",
                 "shasum": ""
             },
             "require": {
@@ -2651,7 +2700,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2014-11-24 04:59:14"
+            "time": "2014-11-26 05:09:19"
         },
         {
             "name": "symfony/yaml",
