@@ -78,7 +78,7 @@ class Composer
     public function create()
     {
         /** Composer.lock is always in the project root folder */
-        $path = $this->$systemPath.$this->composerLockFile;
+        $path = $this->systemPath.$this->lockFileName;
 
         // If we have composer configuration file
         if (file_exists($path)) {
@@ -138,7 +138,7 @@ class Composer
 
             // Set packages rating
             foreach ($requireList as $package => $list) {
-                $this->composerRating($package, $addedPackages, $requireList, 1);
+                $this->ratingCount($package, $addedPackages, $requireList, 1);
             }
 
 
