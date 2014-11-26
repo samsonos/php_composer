@@ -20,8 +20,7 @@
     "autoload" : {
         "classmap": ["src/"],
         "psr-0": {
-            "samsonos\\core\\": "src/",
-            "samson\\core\\": "src/"
+            "samsonos\\composer\\": "src/"
         }
     },
     "extra": { "samson_module_ignore": "1" }
