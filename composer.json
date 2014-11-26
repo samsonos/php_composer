@@ -1,0 +1,28 @@
+{
+    "name":"samsonos/php_composer",
+    "description": "Create packages list",
+    "keywords": [ "composer"],
+    "authors":[
+        {
+            "name":"Nikita Kotenko",
+            "email":"kotenko@samsonos.com"
+        }
+    ],
+    "require":{
+    },
+    "require-dev": {
+        "satooshi/php-coveralls": "dev-master",
+        "squizlabs/php_codesniffer": "2.0.*@dev",
+        "phpunit/phpunit": "4.2.*"
+    },
+    "license":"Open Software License (OSL) v 3.0",
+    "homepage":"http://samsonos.com/",
+    "autoload" : {
+        "classmap": ["src/"],
+        "psr-0": {
+            "samsonos\\core\\": "src/",
+            "samson\\core\\": "src/"
+        }
+    },
+    "extra": { "samson_module_ignore": "1" }
+}
