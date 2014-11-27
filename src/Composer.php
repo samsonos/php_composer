@@ -20,29 +20,40 @@ class Composer
     /** @var string  composer lock file name */
     private $lockFileName = 'composer.lock';
 
-    /** @var string $bucket Aws bucket name */
+    /** @var array List of available vendors */
     private $vendorsList = array();
 
-    /** @var string $accessKey */
+    /** @var string $ignoreKey */
     private $ignoreKey;
 
-    /** @var string $secretKey */
+    /** @var string $includeKey */
     private $includeKey;
 
-    /** @var string $bucketURL Url of amazon bucket */
+    /** @var array List of ignored packages */
     private $ignorePackages = array();
+
+    /** @var array List of packages with its priority */
+    private $packageRating = array();
+
+    /** @var array  Packages list with require packages*/
+    private $packagesList = array();
 
     /**
      * Module initialization
+     * @param $systemPath
+     * @param null $lockFileName
      */
-    public function __construct($systemPath, $lockFileName = null)
+    public function __construct($systemPath, $lockFileName = 'composer.lock')
     {
         $this->systemPath = $systemPath;
-        if (isset($lockFileName)) {
-            $this->lockFileName = $lockFileName;
-        }
+        $this->lockFileName = $lockFileName;
     }
 
+    /**
+     *  Add available vendor
+     * @param $vendor Available vendor
+     * @return $this
+     */
     public function addVendor($vendor)
     {
         if (!in_array($vendor, $this->vendorsList)) {
@@ -51,18 +62,34 @@ class Composer
         return $this;
     }
 
+
+    /**
+     * Set name of composer extra parameter to ignore package
+     * @param $ignoreKey Name
+     * @return $this
+     */
     public function setIgnoreKey($ignoreKey)
     {
         $this->ignoreKey = $ignoreKey;
         return $this;
     }
 
+    /**
+     * Set name of composer extra parameter to include package
+     * @param $includeKey Name
+     * @return $this
+     */
     public function setIncludeKey($includeKey)
     {
         $this->includeKey = $includeKey;
         return $this;
     }
 
+    /**
+     *  Add ignored package
+     * @param $vendor Ignored package
+     * @return $this
+     */
     public function addIgnorePackage($package)
     {
         if (!in_array($package, $this->ignorePackages)) {
@@ -85,11 +112,6 @@ class Composer
             // Read file into object
             $composerObject = json_decode(file_get_contents($path), true);
 
-            $addedPackages = array();
-            $requireList = array();
-            // Include packages list
-            $requireIncludePackages = array();
-
             // Gather all possible packages
             $packages = array_merge(
                 array(),
@@ -98,38 +120,17 @@ class Composer
             );
 
             // Get included packages list
+            $includePackages = $this->includeList($packages);
+
+            // Create list of relevant packages with there require packages
             foreach ($packages as $package) {
                 $requirement = $package['name'];
-                if (!in_array($requirement, $this->ignorePackages)) {
-                    if (!isset($this->ignoreKey)||(!isset($package['extra'][$this->ignoreKey]))) {
-                        if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
-                            $requireIncludePackages[] = $requirement;
-                        } else {
-                            if (sizeof($this->vendorsList)) {
-                                foreach ($this->vendorsList as $vendor) {
-                                    if (strpos($requirement, $vendor) !== false) {
-                                        $requireIncludePackages[] = $requirement;
-                                        break;
-                                    }
-                                }
-                            } else {
-                                $requireIncludePackages[] = $requirement;
-                            }
-                        }
-                    }
-                }
-
-            }
-
-            // Create list of included packages with there require modules
-            foreach ($packages as $package) {
-                $requirement = $package['name'];
-                if (in_array($requirement, $requireIncludePackages)) {
-                    $requireList[$requirement] = array();
+                if (in_array($requirement, $includePackages)) {
+                    $this->packagesList[$requirement] = array();
                     if (isset($package['require'])) {
                         foreach ($package['require'] as $subRequirement => $version) {
-                            if (in_array($subRequirement, $requireIncludePackages)) {
-                                $requireList[$requirement][] = $subRequirement;
+                            if (in_array($subRequirement, $includePackages)) {
+                                $this->packagesList[$requirement][] = $subRequirement;
                             }
                         }
                     }
@@ -137,44 +138,74 @@ class Composer
             }
 
             // Set packages rating
-            foreach ($requireList as $package => $list) {
-                $this->ratingCount($package, $addedPackages, $requireList, 1);
+            foreach ($this->packagesList as $package => $list) {
+                $this->ratingCount($package, 1);
             }
 
             // Sort packages rated
-            if (sizeof($addedPackages) && arsort($addedPackages)) {
-                return $addedPackages;
+            if (sizeof($this->packageRating) && arsort($this->packageRating)) {
+                return $this->packageRating;
             }
         }
         return array();
     }
 
     /**
+     * Create list of relevant packages
+     * @param $packages Composer lock list of packages
+     * @return array List of relevant packages
+     */
+    private function includeList($packages)
+    {
+        $includePackages = array();
+        foreach ($packages as $package) {
+            $requirement = $package['name'];
+            if (!in_array($requirement, $this->ignorePackages)) {
+                if (!isset($this->ignoreKey)||(!isset($package['extra'][$this->ignoreKey]))) {
+                    if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
+                        $includePackages[] = $requirement;
+                    } else {
+                        if (sizeof($this->vendorsList)) {
+                            foreach ($this->vendorsList as $vendor) {
+                                if (strpos($requirement, $vendor) !== false) {
+                                    $includePackages[] = $requirement;
+                                    break;
+                                }
+                            }
+                        } else {
+                            $includePackages[] = $requirement;
+                        }
+                    }
+                }
+            }
+        }
+        return $includePackages;
+    }
+
+    /**
      * Recursive function that provide package priority count
      * @param $requirement Current package name
-     * @param $addedModules List of packages with rating
-     * @param array $require packages list with require packages
      * @param int $current Current rating
      * @param string $parent Parent package
      */
-    private function ratingCount($requirement, & $addedPackages, $require = array(), $current = 1, $parent = '')
+    private function ratingCount($requirement, $current = 1, $parent = '')
     {
         // if current package is not added to list
-        if (!isset($addedPackages[$requirement])) {
+        if (!isset($this->packageRating[$requirement])) {
             // set parent rating
-            $addedPackages[$requirement] = $current;
+            $this->packageRating[$requirement] = $current;
         } else {
             // Update package rating
-            $addedPackages[$requirement] = $addedPackages[$requirement] + $current;
+            $this->packageRating[$requirement] = $this->packageRating[$requirement] + $current;
             // Update package rating
-            $current = $addedPackages[$requirement];
+            $current = $this->packageRating[$requirement];
         }
         // Iterate requires package
-        foreach ($require[$requirement] as $subRequirement) {
+        foreach ($this->packagesList[$requirement] as $subRequirement) {
             // Check if two package require each other
             if ($parent != $subRequirement) {
                 // Update package rating
-                $this->ratingCount($subRequirement, $addedPackages, $require, $current, $requirement);
+                $this->ratingCount($subRequirement, $current, $requirement);
             }
         }
 
