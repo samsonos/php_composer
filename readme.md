@@ -10,7 +10,7 @@ This module create sorted list of project composer packages.
 
 ## Usage
 
-To work with this module you should get file service instance:
+To work with this module you should get composer instance:
 ```php
 $composer = new \samson\composer\Composer($systemPath, $lockFileName);
 ```
