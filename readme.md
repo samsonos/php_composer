@@ -15,13 +15,13 @@ To work with this module you should get file service instance:
 $composer = new \samson\composer\Composer($systemPath, $lockFileName);
 ```
   * ```$systemPath``` - Path to current web-application
-  * ```$lockFileName``` - Composer lock file name (By default is set to ```'composer.lock'```)
+  * ```$lockFileName``` - Composer lock file name (by default is set to ```'composer.lock'```)
     
 To configure module there are methods:
-  * ```addVendor($vendor)``` - Add available vendor (@param $vendor is the available vendor)
-  * ```setIgnoreKey($ignoreKey)``` - Set name of composer extra parameter to ignore package (@param $ignoreKey is name). Composer usage example:```"extra": { "samson_module_ignore": "1" }``` (```$composer->setIgnoreKey('samson_module_ignore')```)  
-  * ```setIncludeKey($includeKey)``` - Set name of composer extra parameter to include package (@param $includeKey is name). Composer usage example:```"extra": { "samson_module_include": "1" }``` (```$composer->setIncludeKey('samson_module_include')```)
-  * ```addIgnorePackage($package)``` - Add ignored package (@param $package is the ignored package)
+  * ```addVendor($vendor)``` - Add available vendor (```$vendor``` is the available vendor)
+  * ```setIgnoreKey($ignoreKey)``` - Set name of composer extra parameter to ignore package (```$ignoreKey``` is name). Composer usage example:```"extra": { "samson_module_ignore": "1" }``` (```$composer->setIgnoreKey('samson_module_ignore')```)  
+  * ```setIncludeKey($includeKey)``` - Set name of composer extra parameter to include package (```$includeKey``` is name). Composer usage example:```"extra": { "samson_module_include": "1" }``` (```$composer->setIncludeKey('samson_module_include')```)
+  * ```addIgnorePackage($package)``` - Add ignored package (```$package``` is the ignored package)
     
 To create sorted list of project composer packages you can use method ```create()```.
 Example usage:
