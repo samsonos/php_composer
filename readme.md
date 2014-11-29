@@ -1,6 +1,6 @@
-#Composer packages list generator
+#[SamsonPHP](http://samsonphp.com/) - composer packages list generator
 
-This module create sorted list of project composer packages.
+This module create sorted by priority list of project composer packages.
 
 [![Latest Stable Version](https://poser.pugx.org/samsonos/php_composer/v/stable.svg)](https://packagist.org/packages/samsonos/php_composer)
 [![Build Status](https://travis-ci.org/samsonos/php_composer.png)](https://travis-ci.org/samsonos/php_composer)
@@ -34,3 +34,5 @@ $composer
     ->addIgnorePackage('samsonos/php_event');
 $composerModules = $composer->create();
 ```
+
+Developed by [SamsonOS](http://samsonos.com/)
