@@ -1,6 +1,8 @@
 #[SamsonPHP](http://samsonphp.com/) - composer packages list generator
 
-This module create sorted by priority list of project composer packages.
+Module create sorted by priority list of project composer packages.
+Priority is determined by the dependencies between packages. If the package does not depend on anybody, it has the lowest priority. If the package depends on most packages, it has the highest priority and it is in the top of the list.
+
 
 [![Latest Stable Version](https://poser.pugx.org/samsonos/php_composer/v/stable.svg)](https://packagist.org/packages/samsonos/php_composer)
 [![Build Status](https://travis-ci.org/samsonos/php_composer.png)](https://travis-ci.org/samsonos/php_composer)
