@@ -1,7 +1,9 @@
 #[SamsonPHP](http://samsonphp.com/) - composer packages list generator
 
-Module creates list of project composer packages sorted by priority.
-Priority is determined by the dependencies between packages. If a package "A" requires package "B", then package "B"'s priority is greater package "A"'s priority.
+Module creates an ordered list of projects composer packages sorted by priority.
+Priority is automatically determined by the dependencies between packages, this dependecies usually located at ```composer.json``` in project root folder. If a package ```package_A``` requires package ```package_B```, then package ```package_B``` priority is higher then package ```package_A``` priority. 
+
+This approach gives ability to build dependency tree from all composer loaded packages and represent it as a list. This is usefull when you tring to customly build package loading logic based on composer.
 
 [![Latest Stable Version](https://poser.pugx.org/samsonos/php_composer/v/stable.svg)](https://packagist.org/packages/samsonos/php_composer)
 [![Build Status](https://travis-ci.org/samsonos/php_composer.png)](https://travis-ci.org/samsonos/php_composer)
