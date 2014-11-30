@@ -8,8 +8,6 @@
             "email":"kotenko@samsonos.com"
         }
     ],
-    "require":{
-    },
     "require-dev": {
         "satooshi/php-coveralls": "dev-master",
         "squizlabs/php_codesniffer": "2.0.*@dev",
