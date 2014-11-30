@@ -10,6 +10,7 @@ This approach gives ability to build dependency tree from all composer loaded pa
 [![Coverage Status](https://img.shields.io/coveralls/samsonos/php_composer.svg)](https://coveralls.io/r/samsonos/php_composer?branch=master)
 [![Code Climate](https://codeclimate.com/github/samsonos/php_composer/badges/gpa.svg)](https://codeclimate.com/github/samsonos/php_composer)
 [![Total Downloads](https://poser.pugx.org/samsonos/php_composer/downloads.svg)](https://packagist.org/packages/samsonos/php_composer)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/samsonos/php_composer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/samsonos/php_composer/?branch=master)
 
 ## Usage
 
