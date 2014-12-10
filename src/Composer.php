@@ -41,7 +41,7 @@ class Composer
     /**
      * Module initialization
      * @param $systemPath
-     * @param null $lockFileName
+     * @param string|null $lockFileName
      */
     public function __construct($systemPath, $lockFileName = 'composer.lock')
     {
