@@ -104,6 +104,7 @@ class Composer
      */
     public function create()
     {
+        $return = array();
         /** Composer.lock is always in the project root folder */
         $path = $this->systemPath.$this->lockFileName;
 
@@ -128,11 +129,9 @@ class Composer
             }
 
             // Sort packages rated
-            if (sizeof($this->packageRating) && arsort($this->packageRating)) {
-                return $this->packageRating;
-            }
+            arsort($this->packageRating);
         }
-        return array();
+        return $this->packageRating;
     }
 
     /**
