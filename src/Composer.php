@@ -119,23 +119,8 @@ class Composer
                 isset($composerObject['packages-dev']) ? $composerObject['packages-dev'] : array()
             );
 
-            // Get included packages list
-            $includePackages = $this->includeList($packages);
-
             // Create list of relevant packages with there require packages
-            foreach ($packages as $package) {
-                $requirement = $package['name'];
-                if (in_array($requirement, $includePackages)) {
-                    $this->packagesList[$requirement] = array();
-                    if (isset($package['require'])) {
-                        foreach ($package['require'] as $subRequirement => $version) {
-                            if (in_array($subRequirement, $includePackages)) {
-                                $this->packagesList[$requirement][] = $subRequirement;
-                            }
-                        }
-                    }
-                }
-            }
+            $this->packagesFill($packages);
 
             // Set packages rating
             foreach ($this->packagesList as $package => $list) {
@@ -208,6 +193,30 @@ class Composer
                 $this->ratingCount($subRequirement, $current, $requirement);
             }
         }
+    }
 
+    /**
+     * Fill list of relevant packages with there require packages
+     * @param $packages Composer lock file object
+     */
+    private function packagesFill($packages)
+    {
+        // Get included packages list
+        $includePackages = $this->includeList($packages);
+
+        // Create list of relevant packages with there require packages
+        foreach ($packages as $package) {
+            $requirement = $package['name'];
+            if (in_array($requirement, $includePackages)) {
+                $this->packagesList[$requirement] = array();
+                if (isset($package['require'])) {
+                    foreach (array_keys($package['require']) as $subRequirement) {
+                        if (in_array($subRequirement, $includePackages)) {
+                            $this->packagesList[$requirement][] = $subRequirement;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
