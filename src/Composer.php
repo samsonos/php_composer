@@ -104,8 +104,7 @@ class Composer
      */
     public function create()
     {
-        $return = array();
-        /** Composer.lock is always in the project root folder */
+        // Composer.lock is always in the project root folder
         $path = $this->systemPath.$this->lockFileName;
 
         // If we have composer configuration file
