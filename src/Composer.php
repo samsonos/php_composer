@@ -107,29 +107,17 @@ class Composer
         // Composer.lock is always in the project root folder
         $path = $this->systemPath.$this->lockFileName;
 
-        // If we have composer configuration file
-        if (file_exists($path)) {
-            // Read file into object
-            $composerObject = json_decode(file_get_contents($path), true);
+        // Create list of relevant packages with there require packages
+        $this->packagesFill($this->readFile($path));
 
-            // Gather all possible packages
-            $packages = array_merge(
-                array(),
-                isset($composerObject['packages']) ? $composerObject['packages'] : array(),
-                isset($composerObject['packages-dev']) ? $composerObject['packages-dev'] : array()
-            );
-
-            // Create list of relevant packages with there require packages
-            $this->packagesFill($packages);
-
-            // Set packages rating
-            foreach ($this->packagesList as $package => $list) {
-                $this->ratingCount($package, 1);
-            }
-
-            // Sort packages rated
-            arsort($this->packageRating);
+        // Set packages rating
+        foreach ($this->packagesList as $package => $list) {
+            $this->ratingCount($package, 1);
         }
+
+        // Sort packages rated
+        arsort($this->packageRating);
+
         return $this->packageRating;
     }
 
@@ -251,5 +239,23 @@ class Composer
                 }
             }
         }
+    }
+
+    private function readFile($path)
+    {
+        $packages = array();
+        // If we have composer configuration file
+        if (file_exists($path)) {
+            // Read file into object
+            $composerObject = json_decode(file_get_contents($path), true);
+
+            // Gather all possible packages
+            $packages = array_merge(
+                array(),
+                isset($composerObject['packages']) ? $composerObject['packages'] : array(),
+                isset($composerObject['packages-dev']) ? $composerObject['packages-dev'] : array()
+            );
+        }
+        return $packages;
     }
 }
