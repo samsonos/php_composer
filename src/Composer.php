@@ -144,26 +144,54 @@ class Composer
         $includePackages = array();
         foreach ($packages as $package) {
             $requirement = $package['name'];
-            if (!in_array($requirement, $this->ignorePackages)) {
-                if (!isset($this->ignoreKey)||(!isset($package['extra'][$this->ignoreKey]))) {
-                    if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
+            if (!$this->isIgnore($package)) {
+                if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
+                    $includePackages[] = $requirement;
+                } else {
+                    if ($this->vendorListCheck($package)) {
                         $includePackages[] = $requirement;
-                    } else {
-                        if (sizeof($this->vendorsList)) {
-                            foreach ($this->vendorsList as $vendor) {
-                                if (strpos($requirement, $vendor) !== false) {
-                                    $includePackages[] = $requirement;
-                                    break;
-                                }
-                            }
-                        } else {
-                            $includePackages[] = $requirement;
-                        }
                     }
                 }
             }
         }
         return $includePackages;
+    }
+
+    /**
+     * Is package ignored
+     * @param $package Composer package
+     * @return bool - is package ignored
+     */
+    private function isIgnore($package)
+    {
+        $isIgnore = false;
+        if (in_array($package['name'], $this->ignorePackages)) {
+            $isIgnore = true;
+        }
+        if (isset($this->ignoreKey)&&(isset($package['extra'][$this->ignoreKey]))) {
+            $isIgnore = true;
+        }
+        return $isIgnore;
+    }
+
+    /**
+     * Check vendor list include
+     * @param $package Composer package
+     * @return bool - is package include
+     */
+    private function vendorListCheck($package)
+    {
+        $include = true;
+        if (sizeof($this->vendorsList)) {
+            $include = false;
+            foreach ($this->vendorsList as $vendor) {
+                if (strpos($package['name'], $vendor) !== false) {
+                    $include = true;
+                    break;
+                }
+            }
+        }
+        return $include;
     }
 
     /**
