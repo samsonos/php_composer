@@ -146,10 +146,8 @@ class Composer
             if (!$this->isIgnore($package)) {
                 if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
                     $includePackages[] = $requirement;
-                } else {
-                    if ($this->vendorListCheck($package)) {
+                } else if ($this->vendorListCheck($package)) {
                         $includePackages[] = $requirement;
-                    }
                 }
             }
         }
