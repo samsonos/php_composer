@@ -200,16 +200,11 @@ class Composer
      */
     private function ratingCount($requirement, $current = 1, $parent = '')
     {
-        // if current package is not added to list
-        if (!isset($this->packageRating[$requirement])) {
-            // set parent rating
-            $this->packageRating[$requirement] = $current;
-        } else {
-            // Update package rating
-            $this->packageRating[$requirement] = $this->packageRating[$requirement] + $current;
-            // Update package rating
-            $current = $this->packageRating[$requirement];
-        }
+        // Update package rating
+        $this->packageRating[$requirement] = (isset($this->packageRating[$requirement]))?$current:($this->packageRating[$requirement] + $current);
+        // Update package rating
+        $current = $this->packageRating[$requirement];
+        
         // Iterate requires package
         foreach ($this->packagesList[$requirement] as $subRequirement) {
             // Check if two package require each other
