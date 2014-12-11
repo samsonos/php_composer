@@ -150,7 +150,7 @@ class Composer
         if (sizeof($this->vendorsList)) {
             if (!isset($this->includeKey) || !isset($package['extra'][$this->includeKey])) {
                 $packageName = $package['name'];
-			    $vendorName = substr($packageName, 0, strpos($packageName,"/"));
+		$vendorName = substr($packageName, 0, strpos($packageName,"/")+1);
                 $include = in_array($vendorName, $this->vendorsList);
             }
         }
