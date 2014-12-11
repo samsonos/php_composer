@@ -201,7 +201,7 @@ class Composer
     private function ratingCount($requirement, $current = 1, $parent = '')
     {
         // Update package rating
-        $this->packageRating[$requirement] = (isset($this->packageRating[$requirement]))?$current:($this->packageRating[$requirement] + $current);
+        $this->packageRating[$requirement] = (isset($this->packageRating[$requirement]))?($this->packageRating[$requirement] + $current):$current;
         // Update package rating
         $current = $this->packageRating[$requirement];
         
