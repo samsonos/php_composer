@@ -234,11 +234,7 @@ class Composer
             if (in_array($requirement, $includePackages)) {
                 $this->packagesList[$requirement] = array();
                 if (isset($package['require'])) {
-                    foreach (array_keys($package['require']) as $subRequirement) {
-                        if (in_array($subRequirement, $includePackages)) {
-                            $this->packagesList[$requirement][] = $subRequirement;
-                        }
-                    }
+                    $this->packagesList[$requirement] = array_intersect(array_keys($package['require']), $includePackages);
                 }
             }
         }
