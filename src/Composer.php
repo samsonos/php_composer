@@ -146,11 +146,17 @@ class Composer
      */
     private function isInclude($package)
     {
-        $include = false;
-        if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
-            $include = true;
-        } elseif ($this->vendorListCheck($package)) {
-            $include = true;
+        $include = true;
+        if (sizeof($this->vendorsList)) {
+            if (!isset($this->includeKey) || !isset($package['extra'][$this->includeKey])) {
+                $include = false;
+                foreach ($this->vendorsList as $vendor) {
+                    if (strpos($package['name'], $vendor) !== false) {
+                        $include = true;
+                        break;
+                    }
+                }
+            }
         }
         return $include;
     }
@@ -170,26 +176,6 @@ class Composer
             $isIgnore = true;
         }
         return $isIgnore;
-    }
-
-    /**
-     * Check vendor list include
-     * @param $package Composer package
-     * @return bool - is package include
-     */
-    private function vendorListCheck($package)
-    {
-        $include = true;
-        if (sizeof($this->vendorsList)) {
-            $include = false;
-            foreach ($this->vendorsList as $vendor) {
-                if (strpos($package['name'], $vendor) !== false) {
-                    $include = true;
-                    break;
-                }
-            }
-        }
-        return $include;
     }
 
     /**
