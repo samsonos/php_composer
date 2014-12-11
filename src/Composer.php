@@ -41,7 +41,7 @@ class Composer
     /**
      * Module initialization
      * @param $systemPath
-     * @param null $lockFileName
+     * @param string|null $lockFileName
      */
     public function __construct($systemPath, $lockFileName = 'composer.lock')
     {
@@ -104,8 +104,7 @@ class Composer
      */
     public function create()
     {
-        $return = array();
-        /** Composer.lock is always in the project root folder */
+        // Composer.lock is always in the project root folder
         $path = $this->systemPath.$this->lockFileName;
 
         // If we have composer configuration file
