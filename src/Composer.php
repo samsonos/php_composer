@@ -149,13 +149,7 @@ class Composer
         $include = true;
         if (sizeof($this->vendorsList)) {
             if (!isset($this->includeKey) || !isset($package['extra'][$this->includeKey])) {
-                $include = false;
-                foreach ($this->vendorsList as $vendor) {
-                    if (strpos($package['name'], $vendor) !== false) {
-                        $include = true;
-                        break;
-                    }
-                }
+                $include = in_array($package['name'], $this->vendorsList);
             }
         }
         return $include;
