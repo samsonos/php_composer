@@ -142,16 +142,29 @@ class Composer
     {
         $includePackages = array();
         foreach ($packages as $package) {
-            $requirement = $package['name'];
             if (!$this->isIgnore($package)) {
-                if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
-                    $includePackages[] = $requirement;
-                } elseif ($this->vendorListCheck($package)) {
-                        $includePackages[] = $requirement;
+                if ($this->isInclude($package)) {
+                    $includePackages[] = $package['name'];
                 }
             }
         }
         return $includePackages;
+    }
+
+    /**
+     * Is package include
+     * @param $package Composer package
+     * @return bool - is package include
+     */
+    private function isInclude($package)
+    {
+        $include = false;
+        if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
+            $include = true;
+        } elseif ($this->vendorListCheck($package)) {
+            $include = true;
+        }
+        return $include;
     }
 
     /**
