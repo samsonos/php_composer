@@ -5,7 +5,7 @@
  * Date: 26.11.2014
  * Time: 14:12
  */
-namespace samson\composer;
+namespace samsonos\composer;
 
 
 /**
@@ -54,7 +54,7 @@ class Composer
      * @param $vendor Available vendor
      * @return $this
      */
-    public function addVendor($vendor)
+    public function vendor($vendor)
     {
         if (!in_array($vendor, $this->vendorsList)) {
             $this->vendorsList[] = $vendor.'/';
@@ -68,7 +68,7 @@ class Composer
      * @param $ignoreKey Name
      * @return $this
      */
-    public function setIgnoreKey($ignoreKey)
+    public function ignoreKey($ignoreKey)
     {
         $this->ignoreKey = $ignoreKey;
         return $this;
@@ -79,7 +79,7 @@ class Composer
      * @param $includeKey Name
      * @return $this
      */
-    public function setIncludeKey($includeKey)
+    public function includeKey($includeKey)
     {
         $this->includeKey = $includeKey;
         return $this;
@@ -90,7 +90,7 @@ class Composer
      * @param $vendor Ignored package
      * @return $this
      */
-    public function addIgnorePackage($package)
+    public function ignorePackage($package)
     {
         if (!in_array($package, $this->ignorePackages)) {
             $this->ignorePackages[] = $package;
