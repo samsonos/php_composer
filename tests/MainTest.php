@@ -184,9 +184,6 @@ class MainTest extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$this->composer = new \samsonos\composer\Composer('tests/', 'composer.test');
-
-		// Disable default error output
-		\samson\core\Error::$OUTPUT = false;
 	}
 
 	public function testCreate()
