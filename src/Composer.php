@@ -41,7 +41,7 @@ class Composer
     /**
      * Module initialization
      * @param $systemPath
-     * @param null $lockFileName
+     * @param string|null $lockFileName
      */
     public function __construct($systemPath, $lockFileName = 'composer.lock')
     {
@@ -104,50 +104,21 @@ class Composer
      */
     public function create()
     {
-        /** Composer.lock is always in the project root folder */
+        // Composer.lock is always in the project root folder
         $path = $this->systemPath.$this->lockFileName;
 
-        // If we have composer configuration file
-        if (file_exists($path)) {
-            // Read file into object
-            $composerObject = json_decode(file_get_contents($path), true);
+        // Create list of relevant packages with there require packages
+        $this->packagesFill($this->readFile($path));
 
-            // Gather all possible packages
-            $packages = array_merge(
-                array(),
-                isset($composerObject['packages']) ? $composerObject['packages'] : array(),
-                isset($composerObject['packages-dev']) ? $composerObject['packages-dev'] : array()
-            );
-
-            // Get included packages list
-            $includePackages = $this->includeList($packages);
-
-            // Create list of relevant packages with there require packages
-            foreach ($packages as $package) {
-                $requirement = $package['name'];
-                if (in_array($requirement, $includePackages)) {
-                    $this->packagesList[$requirement] = array();
-                    if (isset($package['require'])) {
-                        foreach ($package['require'] as $subRequirement => $version) {
-                            if (in_array($subRequirement, $includePackages)) {
-                                $this->packagesList[$requirement][] = $subRequirement;
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Set packages rating
-            foreach ($this->packagesList as $package => $list) {
-                $this->ratingCount($package, 1);
-            }
-
-            // Sort packages rated
-            if (sizeof($this->packageRating) && arsort($this->packageRating)) {
-                return $this->packageRating;
-            }
+        // Set packages rating
+        foreach ($this->packagesList as $package => $list) {
+            $this->ratingCount($package, 1);
         }
-        return array();
+
+        // Sort packages rated
+        arsort($this->packageRating);
+
+        return $this->packageRating;
     }
 
     /**
@@ -159,27 +130,48 @@ class Composer
     {
         $includePackages = array();
         foreach ($packages as $package) {
-            $requirement = $package['name'];
-            if (!in_array($requirement, $this->ignorePackages)) {
-                if (!isset($this->ignoreKey)||(!isset($package['extra'][$this->ignoreKey]))) {
-                    if (isset($this->includeKey) && isset($package['extra'][$this->includeKey])) {
-                        $includePackages[] = $requirement;
-                    } else {
-                        if (sizeof($this->vendorsList)) {
-                            foreach ($this->vendorsList as $vendor) {
-                                if (strpos($requirement, $vendor) !== false) {
-                                    $includePackages[] = $requirement;
-                                    break;
-                                }
-                            }
-                        } else {
-                            $includePackages[] = $requirement;
-                        }
-                    }
+            if (!$this->isIgnore($package)) {
+                if ($this->isInclude($package)) {
+                    $includePackages[] = $package['name'];
                 }
             }
         }
         return $includePackages;
+    }
+
+    /**
+     * Is package include
+     * @param $package Composer package
+     * @return bool - is package include
+     */
+    private function isInclude($package)
+    {
+        $include = true;
+        if (sizeof($this->vendorsList)) {
+            if (!isset($this->includeKey) || !isset($package['extra'][$this->includeKey])) {
+                $packageName = $package['name'];
+		$vendorName = substr($packageName, 0, strpos($packageName,"/")+1);
+                $include = in_array($vendorName, $this->vendorsList);
+            }
+        }
+        return $include;
+    }
+
+    /**
+     * Is package ignored
+     * @param $package Composer package
+     * @return bool - is package ignored
+     */
+    private function isIgnore($package)
+    {
+        $isIgnore = false;
+        if (in_array($package['name'], $this->ignorePackages)) {
+            $isIgnore = true;
+        }
+        if (isset($this->ignoreKey)&&(isset($package['extra'][$this->ignoreKey]))) {
+            $isIgnore = true;
+        }
+        return $isIgnore;
     }
 
     /**
@@ -190,16 +182,11 @@ class Composer
      */
     private function ratingCount($requirement, $current = 1, $parent = '')
     {
-        // if current package is not added to list
-        if (!isset($this->packageRating[$requirement])) {
-            // set parent rating
-            $this->packageRating[$requirement] = $current;
-        } else {
-            // Update package rating
-            $this->packageRating[$requirement] = $this->packageRating[$requirement] + $current;
-            // Update package rating
-            $current = $this->packageRating[$requirement];
-        }
+        // Update package rating
+        $this->packageRating[$requirement] = (isset($this->packageRating[$requirement]))?($this->packageRating[$requirement] + $current):$current;
+        // Update package rating
+        $current = $this->packageRating[$requirement];
+        
         // Iterate requires package
         foreach ($this->packagesList[$requirement] as $subRequirement) {
             // Check if two package require each other
@@ -208,6 +195,44 @@ class Composer
                 $this->ratingCount($subRequirement, $current, $requirement);
             }
         }
+    }
 
+    /**
+     * Fill list of relevant packages with there require packages
+     * @param $packages Composer lock file object
+     */
+    private function packagesFill($packages)
+    {
+        // Get included packages list
+        $includePackages = $this->includeList($packages);
+
+        // Create list of relevant packages with there require packages
+        foreach ($packages as $package) {
+            $requirement = $package['name'];
+            if (in_array($requirement, $includePackages)) {
+                $this->packagesList[$requirement] = array();
+                if (isset($package['require'])) {
+                    $this->packagesList[$requirement] = array_intersect(array_keys($package['require']), $includePackages);
+                }
+            }
+        }
+    }
+
+    private function readFile($path)
+    {
+        $packages = array();
+        // If we have composer configuration file
+        if (file_exists($path)) {
+            // Read file into object
+            $composerObject = json_decode(file_get_contents($path), true);
+
+            // Gather all possible packages
+            $packages = array_merge(
+                array(),
+                isset($composerObject['packages']) ? $composerObject['packages'] : array(),
+                isset($composerObject['packages-dev']) ? $composerObject['packages-dev'] : array()
+            );
+        }
+        return $packages;
     }
 }
