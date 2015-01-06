@@ -180,7 +180,7 @@ class MainTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $composer = new \samson\composer\Composer('tests/', 'composer.test');
+        $composer = new \samsonos\composer\Composer('tests/', 'composer.test');
         $composer->addVendor('samsonos')->setIgnoreKey('samson_module_ignore')->addIgnorePackage('samsonos/php_core');
         $composerModules = $composer->create();
 
@@ -189,7 +189,7 @@ class MainTest extends \PHPUnit_Framework_TestCase
 
     public function testEmpty()
     {
-        $composer = new \samson\composer\Composer('tests/', 'composer.test');
+        $composer = new \samsonos\composer\Composer('tests/', 'composer.test');
         $composer->addVendor('samsonostest');
         $composerModules = $composer->create();
         $modulesExample = array();
@@ -197,7 +197,7 @@ class MainTest extends \PHPUnit_Framework_TestCase
     }
     public function testNoFile()
     {
-        $composer = new \samson\composer\Composer('tests/', 'composer.lock');
+        $composer = new \samsonos\composer\Composer('tests/', 'composer.lock');
         $composer->addVendor('samsonos')->setIgnoreKey('samson_module_ignore')->addIgnorePackage('samsonos/php_core');
         $composerModules = $composer->create();
         $modulesExample = array();
