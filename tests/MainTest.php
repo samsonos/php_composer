@@ -206,13 +206,13 @@ class MainTest extends \PHPUnit_Framework_TestCase
 
     public function testNoVendor()
     {
-        $composer = new \samson\composer\Composer('tests/', 'composer.test');
+        $composer = new \samsonos\composer\Composer('tests/', 'composer.test');
         $composerModules = $composer->create();
         $this->assertEquals($composerModules, $this->noVendorExample);
     }
     public function testIncludeKey()
     {
-        $composer = new \samson\composer\Composer('tests/', 'composer.test');
+        $composer = new \samsonos\composer\Composer('tests/', 'composer.test');
         $composer->addVendor('samsonos')->setIncludeKey('samson_module_include')->addIgnorePackage('samsonos/php_core');
         $composerModules = $composer->create();
         $this->assertEquals($composerModules, $this->includeKeyExample);
